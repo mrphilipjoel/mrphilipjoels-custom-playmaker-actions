@@ -1,11 +1,12 @@
 using UnityEngine;
-using Wolf3D.ReadyPlayerMe.AvatarSDK;
+using ReadyPlayerMe;
+using System;
 
 namespace HutongGames.PlayMaker.Actions
 {
 
 	[ActionCategory("ReadyPlayerMe")]
-	[Tooltip("NEW Version as of 2/7/22 - Loads Ready Player Me Avatar")]
+	[Tooltip("NEW Version as of 8/13/22 - Loads Ready Player Me Avatar")]
 	public class ReadyPlayerMeLoadAvatar : FsmStateAction
 	{
 		[Tooltip("URL of the RPM Avatar.")]
@@ -28,16 +29,18 @@ namespace HutongGames.PlayMaker.Actions
 			avatarLoader.LoadAvatar((avatarUrl.Value), AvatarImportedCallback, AvatarLoadedCallback);
 		}
 
-		private void AvatarImportedCallback(GameObject avatar)
+     
+
+        private void AvatarImportedCallback(GameObject avatar)
 		{
 			// called after GLB file is downloaded and imported
 			Debug.Log("Avatar Imported!");
 		}
 
-		private void AvatarLoadedCallback(GameObject avatar, AvatarMetaData metaData)
+		private void AvatarLoadedCallback(GameObject arg1, AvatarMetadata arg2)
 		{
 			// called after avatar is prepared with components and anim controller 
-			avatarGameObject.Value = avatar;
+			avatarGameObject.Value = arg1;
 			Debug.Log("Avatar Loaded!");
 			Finish();
 		}
